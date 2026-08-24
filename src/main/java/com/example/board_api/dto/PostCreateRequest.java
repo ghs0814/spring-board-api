@@ -16,4 +16,13 @@ public class PostCreateRequest {
 
     @NotBlank(message = "내용은 필수입니다.")
     private String content;
+
+    public PostCreateRequest(
+            String title,
+            String content
+    ) {
+        this.title = title;
+        this.content = content;
+    }
+
 }
