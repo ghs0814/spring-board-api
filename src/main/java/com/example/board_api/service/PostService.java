@@ -4,6 +4,7 @@ import com.example.board_api.dto.PostCreateRequest;
 import com.example.board_api.dto.PostResponse;
 import com.example.board_api.dto.PostUpdateRequest;
 import com.example.board_api.entity.Post;
+import com.example.board_api.exception.PostNotFoundException;
 import com.example.board_api.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,9 +46,7 @@ public class PostService {
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(
-                        () -> new IllegalArgumentException(
-                                "게시글을 찾을 수 없습니다."
-                        )
+                        PostNotFoundException::new // 커스텀 예외 생성
                 );
 
         return new PostResponse(post); //돌려주는건 전부 dto로

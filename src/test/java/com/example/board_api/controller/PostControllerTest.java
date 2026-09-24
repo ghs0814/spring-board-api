@@ -201,4 +201,18 @@ class PostControllerTest {
                 postRepository.findById(postId)
         ).isEmpty();
     }
+    @Test
+    void failToGetPostWhenPostDoesNotExist() throws Exception {
+
+        mockMvc.perform(
+                        get("/api/posts/{postId}", 999999L)
+                )
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code")
+                        .value("POST_NOT_FOUND"))
+                .andExpect(jsonPath("$.message")
+                        .value("게시글을 찾을 수 없습니다."));
+    }
+
+
 }
